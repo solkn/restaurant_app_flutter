@@ -8,17 +8,17 @@ import 'package:http/http.dart'as http;
 
 class CommentDataProvider{
     final http.Client httpClient;
+    final String _baseUrl = "http://192.168.56.1:8080";
 
     CommentDataProvider({@required this.httpClient}):assert(httpClient != null);
 
 
     Future<List<Comment>>getComments()async{
 
-        List<Comment>comments;
-        final String url = "http://192.168.56.1:8080/api/comment";
+        List<Comment>comments = [];
 
         try{
-            final response = await httpClient.get(url);
+            final response = await httpClient.get("$_baseUrl/api/comment");
 
             if(response.statusCode == 200){
                 final extractedData = json.decode(response.body)as List<dynamic>;
@@ -46,10 +46,9 @@ class CommentDataProvider{
 
      Future<Comment>getComment(String id)async{
         Comment comment;
-        final String url = "http://192.168.56.1:8080/api/comment/$id";
 
         try{
-            final response = await httpClient.get(url);
+            final response = await httpClient.get("$_baseUrl/api/comment/$id");
 
             if(response.statusCode == 200){
                 final extractedData = json.decode(response.body)as Map<String,dynamic>;
@@ -74,14 +73,13 @@ class CommentDataProvider{
      }
 
     Future<Comment> postComment(Comment comment) async {
-        final String url = "http://192.168.56.1:8080/api/comment";
         Comment cmt;
         Util util = new Util();
         String token = await util.getUserToken();
 
         try {
             final response = await http.post(
-                url,
+                "$_baseUrl/api/comment",
                 body: json.encode({
                     "id":comment.id,
                     "fullName":comment.fullName,
@@ -113,14 +111,13 @@ class CommentDataProvider{
     }
 
     Future<Comment> updateComment(Comment comment) async {
-        final String url = "http://192.168.56.1:8080/api/comment/${comment.id}";
         Comment cmt;
         Util util = new Util();
         String token = await util.getUserToken();
 
         try {
             final response = await http.put(
-                url,
+                "$_baseUrl/api/comment/${comment.id}",
                 body: json.encode({
                     "id":comment.id,
                     "fullName":comment.fullName,
@@ -151,13 +148,12 @@ class CommentDataProvider{
     }
 
     Future<void> deleteComment(String id) async {
-        final String url = "http://192.168.56.1:8080/comment/$id";
         Util util = new Util();
         String token = await util.getUserToken();
 
         try {
             final response = await httpClient.delete(
-                url,
+                "$_baseUrl/api/comment/$id",
                 headers:{
                     HttpHeaders.contentTypeHeader:"application/json",
                     HttpHeaders.authorizationHeader:"Bearer $token"

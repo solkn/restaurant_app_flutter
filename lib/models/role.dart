@@ -13,6 +13,11 @@ class Role extends Equatable{
       name: json["name"],
     );
   }
+
+   Map toJson()=>{
+        "id":id,
+        "name":name
+   };
   @override
   String toString() {
     return 'Role{id:$id,name:$name}';

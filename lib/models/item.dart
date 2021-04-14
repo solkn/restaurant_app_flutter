@@ -37,6 +37,19 @@ class Item extends Equatable{
                             (json) => Ingredient.fromJson(json)).toList()
            );
   }
+
+  Map toJson(json)=>{
+        "id":id,
+         "name":name,
+         "price":price,
+         "description":description,
+          (json["categories"]as List).map<Category>(
+                (json) => Category.fromJson(json)).toList():categories,
+          "image":image,
+          "ingredient_id":ingredientID,
+          (json["ingredients"]as List).map<Ingredient>(
+                 (json) => Ingredient.fromJson(json)).toList():ingredients
+  };
   @override
   List<Object> get props => [id,name,price,description,categories,image,ingredientID,ingredients];
 

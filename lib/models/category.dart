@@ -32,6 +32,15 @@ class Category extends Equatable{
   }
 
 
+  Map toJson(json)=>{
+    "id":id,
+    "name":name,
+    "description":description,
+    "image":image,
+    (json["items"]as List).map<Item>(
+            (json) => Item.fromJson(json)).toList():items
+  };
+
   String toString(){
 
        return "Category{id:$id,name:$name,description:$description,image:$image,items:$items}";

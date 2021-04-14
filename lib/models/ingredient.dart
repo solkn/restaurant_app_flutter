@@ -24,6 +24,12 @@ class Ingredient extends Equatable{
       );
   }
 
+  Map toJson(json)=>{
+    "id":id,
+    "name":name,
+    "description":description,
+
+  };
 
   String toString(){
     return "Ingredient{id:$id,name:$name,description:$description}";

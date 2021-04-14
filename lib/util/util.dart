@@ -1,5 +1,6 @@
+
+import 'package:flutter_app_restaurant/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/model.dart';
 
 class Util {
   Future<void> storeUserInformation(User user) async {
@@ -7,19 +8,17 @@ class Util {
     await prefs.setInt('id', user.id);
     await prefs.setInt('role_id', user.roleID);
     await prefs.setString('full_name', user.fullName);
-    await prefs.setInt("age", user.age);
     await prefs.setString('email', user.email);
     await prefs.setString('password', user.password);
     await prefs.setString('phone', user.phone);
-    await prefs.setString('role_name', user.role.name);
+    //await prefs.setString('role_name', user.role.name);
   }
 
   Future<User> getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    User user = new User.fullInfo(
+    User user = new User(
         id: prefs.getInt('id'),
-        age: prefs.getInt("age"),
-        role: Role(id: prefs.getInt('id'), name: prefs.getString('role_name')),
+       // role: Role(id: prefs.getInt('id'), name: prefs.getString('role_name')),
         password: prefs.getString('password'),
         email: prefs.getString('email'),
         phone: prefs.getString('phone'),
