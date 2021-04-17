@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_restaurant/models/model.dart';
 import 'package:flutter_app_restaurant/util/util.dart';
 import 'package:http/http.dart'as http;
-class OrderDataProvider{
+class IngredientDataProvider{
   final http.Client httpClient;
   final String _baseUrl = "http://192.168.56.1:8080";
 
-  OrderDataProvider({@required this.httpClient}):assert(httpClient != null);
+  IngredientDataProvider({@required this.httpClient}):assert(httpClient != null);
 
 
   Future<List<Ingredient>>getIngredients()async{
